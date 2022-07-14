@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    {% if app.user %}
+        <p>Welcome: <b>{{ app.user.email }}</b></p>
+    {% endif %}
+
+    <a href="/{{ app.user ? 'logout' : 'login' }}">{{ app.user ? 'Logout' : 'Login' }}</a>
+
+   
+{% endblock %}

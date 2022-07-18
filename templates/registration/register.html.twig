@@ -4,26 +4,37 @@
 
 {% block body %}
     
-<div class=" w-1/2 block m-auto">
+<div class=" flex w-full h-screen items-center justify-center">
 
     <div class=" border-2 rounded-lg shadow-lg hover:shadow-xl duration-500 mt-10">
 
         <!--Logo-img-->
         <img src="{{ asset('images/ChitChat-logo-7.png') }}" alt="ChitChat-logo" class=" block ml-auto mr-auto">
 
-        {{ form_start(registrationForm) }}
-                {{ form_row(registrationForm.Firstname)}}
-                {{ form_row(registrationForm.Lastname) }}
-                {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.plainPassword, {
+        {{ form_start(registrationForm, {'attr': {'class': 'p-5'}}) }}
+                <!--Firstname-->
+                {{ form_row(registrationForm.Firstname, 
+                {'attr': {'class': 'shadow appearance-none border border-gray-400 text-gray-700 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}})}}
+
+                <!--Lastname-->
+                {{ form_row(registrationForm.Lastname, 
+                {'attr': {'class': 'shadow appearance-none border border-gray-400 text-gray-700 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+
+                <!--lastname-->
+                {{ form_row(registrationForm.email, 
+                {'attr': {'class': 'shadow appearance-none border border-gray-400 text-gray-700 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+
+                <!--Password-->
+                {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'shadow appearance-none border border-gray-400 text-gray-700 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}, 
+                {
                     label: 'Password'
                 }) }}
                 
-                {{ form_row(registrationForm.agreeTerms) }}
+                {{ form_row(registrationForm.agreeTerms,    {'attr': {'class': ''}}) }}
 
                 <button type="submit" class="w-full cursor-pointer rounded p-1 bg-slate-600 duration-500 hover:bg-slate-500 font-bold text-white">Register</button>
 
-                <p class="text-center my-5">Already have account <a href="{{path('app_login')}}" class="text-slate-600 hover:underline font-bold">Sign here:</a></p>
+                <p class="text-center my-5">Already have account <a href="{{path('app_login')}}" class="text-slate-600 hover:underline font-bold pt-4">Sign here</a></p>
 
         {{ form_end(registrationForm) }}
 

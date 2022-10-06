@@ -5,19 +5,27 @@ namespace App\Entity;
 use App\Repository\MessageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
+use Laminas\Code\Generator\EnumGenerator\Name;
+use Timestamp;
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
+#[ORM\Table()]
+#[ORM\HasLifecycleCallbacks]
 class Message
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column()]
+    #[ORM\Column(type:'integer')]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type:'text')]
+    #[ORM\ManyToOne(targetEntity:"Conversation", inversedBy:"messages")]
     private ?int $conversation_id = null;
 
     #[ORM\Column]
+    #[ORM\ManyToOne(targetEntity:"User", inversedBy:"messages")]
     private ?int $user_id = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -25,6 +33,8 @@ class Message
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
+
+    private $mine;
 
     public function getId(): ?int
     {

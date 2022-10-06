@@ -10,13 +10,15 @@ class Participant
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column()]
+    #[ORM\Column(type:'integer')]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[ORM\ManyToOne(targetEntity:"User", inversedBy:"Participants")]
     private ?int $user_id = null;
 
     #[ORM\Column]
+    #[ORM\ManyToOne(targetEntity:"Conversation", inversedBy:"Participants")]
     private ?int $conversation_id = null;
 
     #[ORM\Column]

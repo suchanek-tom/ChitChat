@@ -1,18 +1,20 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}ChitChat{% endblock %}
 
 {% block body %}
-
      <header class="w-full h-16 drop-shadow-xl bg-slate-600">
-        <div class="container px-4 md:px-0 h-full mx-auto flex items-center">
-
-        <img src="{{ asset('images/user.png') }}" alt="User-img" class="h-5 mx-2">
+        <div class="container md:px-0 h-full flex items-center">
+            
+            <!--Select option logo-->
+            <img src="{{ asset('images/user.png') }}" alt="User-img" class="h-5 mx-4">
+            
 
             {% if app.user %}
-            <p class=" text-white font-semibold mx-1">{{ app.user.Firstname }} {{ app.user.Lastname}}</p>
+            <p class=" text-white font-semibold">{{ app.user.Firstname }} {{ app.user.Lastname}}</p>
             {% else %}
-            <p class=" text-white font-semibold mx-2">unregistered</p>
+            <p class=" text-white font-semibold">unregistered</p>
             {% endif %}
             <a href="/{{ app.user ? 'logout' : 'login' }}" class=" text-center text-white text-xl hover:text-slate-200 duration-500 mx-4 ml-auto">{{ app.user ? 'Logout' : 'Login' }}</a>
          
@@ -20,9 +22,11 @@
     </header>
 
     <img src="{{ asset('images/logo3.png') }}" alt="ChitChat-logo" class=" ml-auto m-auto block h-64">
+    
+    <div id="root"></div>
+    
     {% if app.user %}
         <p class=" text-center">user is loged in</p>
-        <div id="app"></div>
     {% else %}
     <!--Log out-->
     <h1 class=" text-center text-3xl m-5">Welcome!</h1>
@@ -32,5 +36,4 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
 {% endblock %}

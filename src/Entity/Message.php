@@ -10,7 +10,6 @@ use Laminas\Code\Generator\EnumGenerator\Name;
 use Timestamp;
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
-#[ORM\Table()]
 #[ORM\HasLifecycleCallbacks]
 class Message
 {
@@ -20,7 +19,7 @@ class Message
     #[ORM\Column(type:'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type:'text')]
+    #[ORM\Column(type:'integer')]
     #[ORM\ManyToOne(targetEntity:"Conversation", inversedBy:"messages")]
     private ?int $conversation_id = null;
 
@@ -46,7 +45,7 @@ class Message
         return $this->conversation_id;
     }
 
-    public function setConversationId(int $conversation_id): self
+    public function setConversationId(?int $conversation_id): self
     {
         $this->conversation_id = $conversation_id;
 

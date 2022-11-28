@@ -46,7 +46,7 @@ class Participant
         return $this->conversation_id;
     }
 
-    public function setConversationId(int $conversation_id): self
+    public function setConversationId(?int $conversation_id): self
     {
         $this->conversation_id = $conversation_id;
 

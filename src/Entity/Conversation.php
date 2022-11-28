@@ -67,7 +67,7 @@ class Conversation
     {
         if (!$this->participants->contains($participant)) {
             $this->participants[] = $participant;
-            $participant->setConversationId($this);
+            $participant->setConversationId(null); //TODO při problému fixnout přidat id
         }
 
         return $this;

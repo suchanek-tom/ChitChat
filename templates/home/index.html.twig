@@ -7,21 +7,20 @@
      <header class="w-full h-16 drop-shadow-xl bg-slate-600">
         <div class="container md:px-0 h-full flex items-center">
             
-            <!--Select option logo-->
-            <img src="{{ asset('images/user.png') }}" alt="User-img" class="h-5 mx-4">
-            
-
+            <!--Select option logo-->            
             {% if app.user %}
-            <p class=" text-white font-semibold">{{ app.user.Firstname }} {{ app.user.Lastname}}</p>
+            <p class=" text-white font-semibold mx-4">{{ app.user.Firstname }} {{ app.user.Lastname}}</p>
             {% else %}
-            <p class=" text-white font-semibold">unregistered</p>
-            {% endif %}
+            <p class=" text-white font-semibold mx-4">unregistered</p>
+            {% endif %}   
+
+            <img src="{{ asset('images/user.png') }}" alt="User-img" class="h-8">
             <a href="/{{ app.user ? 'logout' : 'login' }}" class=" text-center text-white text-xl hover:text-slate-200 duration-500 mx-4 ml-auto">{{ app.user ? 'Logout' : 'Login' }}</a>
-         
+
          </div>       
     </header>
 
-    <img src="{{ asset('images/logo3.png') }}" alt="ChitChat-logo" class=" ml-auto m-auto block h-64">
+    <img src="{{ asset('images/logo3.png') }}" alt="ChitChat-logo" class="  m-auto block h-64">
     
     <div id="root"></div>
     

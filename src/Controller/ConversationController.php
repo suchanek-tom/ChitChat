@@ -10,12 +10,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Notifier\Message\ChatMessage;
+use Doctrine\ORM\EntityManagerInterface;
 
 
+#[Route('/conversation', name: 'app_conversation')]
 class ConversationController extends AbstractController
 {
 
+    public function __construct(UserRepository $userRepository, EntityManagerInterface $entityManager, ConversationRepository $conversationRepository)
+    {
+        $this->userRepository = $userRepository;
+        $this->entityManager = $entityManager;
+        $this->conversationRepository = $conversationRepository;
+    }
     #[Route('/conversation', name: 'app_conversation')]
 
     private $userRepository;
@@ -24,9 +31,10 @@ class ConversationController extends AbstractController
 
     private $conversationRepository;
 
+    
     public function index(Request $request)
     {
-        $otherUser = $request->get('otherUser', 0);
+        $otherUser = $request->get('otherUser',default:0);
         $otherUser = $this->userRepository->find($otherUser);
 
         if (is_null($otherUser)) {
@@ -38,10 +46,10 @@ class ConversationController extends AbstractController
             throw new \Exception("That's deep but you cannot create a conversation with yourself");
         }
 
-        // Check if conversation already exists
+        // Check if conversation exists
         $conversation = $this->conversationRepository->findConversationByParticipants(
             $otherUser->getId(),
-            $this->getUser()->getUserIdentifier()
+            $this->getUser()->getUserIdentifier() //GetID
         );
 
 
@@ -52,7 +60,7 @@ class ConversationController extends AbstractController
         $conversation = new Conversation();
 
         $participant = new Participant();
-        $participant->setUserId($this->getUser());
+        $participant->setUser($this->getUser());
         $participant->setConversationId($conversation);
 
 

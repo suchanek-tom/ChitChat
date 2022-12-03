@@ -4,8 +4,8 @@
 {% block title %}ChitChat{% endblock %}
 
 {% block body %}
-     <header class="w-full h-16 drop-shadow-xl bg-slate-600">
-        <div class="container md:px-0 h-full flex items-center">
+     <header class="w-full h-16 drop-shadow-xl bg-slate-700">
+        <div class=" h-full flex items-center">
             
             <!--Select option logo-->            
             {% if app.user %}
@@ -15,7 +15,7 @@
             {% endif %}   
 
             <img src="{{ asset('images/user.png') }}" alt="User-img" class="h-8">
-            <a href="/{{ app.user ? 'logout' : 'login' }}" class=" text-center text-white text-xl hover:text-slate-200 duration-500 mx-4 ml-auto">{{ app.user ? 'Logout' : 'Login' }}</a>
+            <a href="/{{ app.user ? 'logout' : 'login' }}" class=" text-center text-white text-xl hover:text-slate-200 duration-500 mx-6 ml-auto">{{ app.user ? 'Logout' : 'Login' }}</a>
 
          </div>       
     </header>

@@ -76,7 +76,7 @@ class Conversation
     public function removeParticipant(Participant $participant): self
     {
         if ($this->participants->removeElement($participant)) {
-            // set the owning side to null (unless already changed)
+            
             if ($participant->getConversationId() === $this) {
                 $participant->setConversationId(null);
             }
@@ -106,7 +106,7 @@ class Conversation
     public function removeMessage(Message $message): self
     {
         if ($this->messages->removeElement($message)) {
-            // set the owning side to null (unless already changed)
+           
             if ($message->getConversationId() === $this) {
                 $message->setConversationId(null);
             }

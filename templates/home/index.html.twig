@@ -4,7 +4,8 @@
 {% block title %}ChitChat{% endblock %}
 
 {% block body %}
-     <header class="w-full h-16 drop-shadow-xl bg-slate-700">
+
+    <header class="w-full h-16 drop-shadow-xl bg-slate-700">
         <div class=" h-full flex items-center">
             
             <!--Select option logo-->            
@@ -20,19 +21,7 @@
          </div>       
     </header>
 
-    <img src="{{ asset('images/logo3.png') }}" alt="ChitChat-logo" class="  m-auto block h-64">
-    
-    <div id="root"></div>
-    
-    {% if app.user %}
-        <p class=" text-center">user is loged in</p>
-    {% else %}
-    <!--Log out-->
-    <h1 class=" text-center text-3xl m-5">Welcome!</h1>
-    <p class=" text-center font-bold">You are not log in!</p>
-    {% endif %}
-
+    <div id="app"></div>
 {% endblock %}
 
-{% block javascripts %}
-{% endblock %}
+{% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}

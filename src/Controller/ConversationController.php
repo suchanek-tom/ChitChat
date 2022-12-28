@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
 
-#[Route('/conversation', name: 'app_conversation')]
 class ConversationController extends AbstractController
 {
 
@@ -23,7 +22,7 @@ class ConversationController extends AbstractController
         $this->entityManager = $entityManager;
         $this->conversationRepository = $conversationRepository;
     }
-    #[Route('/conversation', name: 'app_conversation')]
+    #[Route('/conversation', name: 'app_conversation', methods:'POST')]
 
     private $userRepository;
 

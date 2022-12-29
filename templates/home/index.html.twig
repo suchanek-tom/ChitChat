@@ -4,8 +4,12 @@
 {% block title %}ChitChat{% endblock %}
 
 {% block body %}
-
-    <header class="w-full h-16 drop-shadow-xl bg-slate-700">
+    {% if app.user %}
+    <!--Log In-->
+        <div id="app"></div>
+    {% else %}
+    <!--Log out-->
+     <header class="w-full h-16 drop-shadow-xl bg-slate-700">
         <div class=" h-full flex items-center">         
             {% if app.user %}
             <p class=" text-white font-semibold mx-4">{{ app.user.Firstname }} {{ app.user.Lastname}}</p>
@@ -17,12 +21,6 @@
             <a href="/{{ app.user ? 'logout' : 'login' }}" class=" text-center text-white text-xl hover:text-slate-200 duration-500 mx-6 ml-auto">{{ app.user ? 'Logout' : 'Login' }}</a>
          </div>       
     </header>
-
-    {% if app.user %}
-    <!--Log In-->
-        <div id="app"></div>
-    {% else %}
-    <!--Log out-->
     <img src="{{ asset('images/logo3.png') }}" alt="ChitChat-logo" class=" m-auto block h-64">
     <h1 class=" text-center text-3xl m-1">Welcome!</h1>
     <p class=" text-center font-bold">You are not log in!</p>

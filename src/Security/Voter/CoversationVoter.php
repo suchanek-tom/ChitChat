@@ -30,7 +30,7 @@ class ConversationVoter extends Voter
     {
         $result = $this->conversationRepository->checkIfUserisParticipant(
             $subject->getId(),
-            $token->getUser()->getId()
+            $token->getUser()->getUserIdentifier() //GetId()
         );
 
         return !!$result;

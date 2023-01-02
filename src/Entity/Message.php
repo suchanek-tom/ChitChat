@@ -57,7 +57,7 @@ class Message
         return $this->user_id;
     }
 
-    public function setUserId(int $user_id): self
+    public function setUserId(?int $user_id): self
     {
         $this->user_id = $user_id;
 
@@ -86,5 +86,21 @@ class Message
         $this->created_at = $created_at;
 
         return $this;
+    }
+
+     /**
+     * @return mixed
+     */
+    public function getMine()
+    {
+        return $this->mine;
+    }
+
+    /**
+     * @param mixed $mine
+     */
+    public function setMine($mine): void
+    {
+        $this->mine = $mine;
     }
 }

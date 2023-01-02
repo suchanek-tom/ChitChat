@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Index;
 use Laminas\Code\Generator\EnumGenerator\Name;
+use phpDocumentor\Reflection\Types\This;
 
 #[ORM\Entity(repositoryClass: ConversationRepository::class)]
 #[Table(name: 'last_message_id_index')]

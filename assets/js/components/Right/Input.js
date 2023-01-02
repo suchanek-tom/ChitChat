@@ -35,19 +35,20 @@ class Input extends React.Component{
 
     render(){
         return(
-            <div>
-                <form action="#" className=" bg-white p-2 w-screen">
-                    <div>
-                        <input type="text" placeholder="Write your message!" 
-                        className=" w-full p-2 rounded bg-gray-200 text-gray-600 placeholder-gray-600 focus:outline-none"/>
-                        <div className="">
-                            <button type="submit" className="">
-                                send 
-                            </button>
-                        </div>
-                    </div>
+            <div className=" border-t-2 py-3 px-3">
+            <div className=" mx-auto my-auto w-full sm:w-full md:w-full">
+                <form class="flex flex-row">    
+                    <input
+                        className="h-12 bg-gray-100 text-grey-darker text-grey-darkest border border-gray-100 w-full py-1 px-2 outline-none text-lg text-gray-600 rounded-l"
+                        type="text" placeholder="Write your message..."/>
+                    <span
+                        className="flex items-center bg-gray-700 hover:opacity-80 duration-700 rounded rounded-l-none border-0 px-3 font-bold cursor-pointer">
+                        <button
+                            className="bg-gredient-dark hover:bg-gredient-light text-lg text-white font-bold py-2 px-6 rounded">Send</button>
+                    </span>
                 </form>
             </div>
+        </div>
         );
     }
 }

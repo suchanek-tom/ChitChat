@@ -11,10 +11,11 @@ class App extends React.Component{
 
 render(){
     return(
-        <div className=' container py-5 px-4'>
-            <div className=' row rounded-lg overflow-hidden shadow'>
-                <Left/>
-                
+        <div className=''>
+            <div className='grid grid-rows-2 grid-flow-col'>
+                <Left />
+                <Blank />
+                <Right />
             </div>
            
         </div>

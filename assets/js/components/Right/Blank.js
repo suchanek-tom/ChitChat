@@ -3,8 +3,8 @@ import React from "react";
 class Blank extends React.Component{
     render(){
         return(
-            <div className=" grid-cols-7 px-0" style={{width: '100%', backgroundColor: 'white'}}>
-                
+            <div className="row-span-2 col-span-2 px-0 bg-white m-2">
+                <p>messages</p>
             </div>
         );
     }

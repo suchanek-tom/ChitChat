@@ -50,14 +50,14 @@ class Right extends React.Component{
 
     render(){
         return(
-            <div className="w-screen">
+            <div className="col-span-2">
                 <div className=" px-4 py-5 bg-white" ref={this.bodyRef}>
                     {
                         //Message function
                     }
                 </div>
 
-                <Input id={this.props.match.params.id} />
+                <Input />
             </div>
         );
     }

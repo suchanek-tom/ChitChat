@@ -59,7 +59,7 @@ class ConversationController extends AbstractController
         $conversation = new Conversation();
 
         $participant = new Participant();
-        $participant->setUser($this->getUser());
+        $participant->setUserId($this->getUser());
         $participant->setConversationId($conversation);
 
 

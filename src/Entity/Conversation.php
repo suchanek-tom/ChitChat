@@ -94,11 +94,11 @@ class Conversation
         return $this->messages;
     }
 
-    public function addMessage(Message $message): self
+    public function addMessage(Message $message, ?int $setConversationId): self
     {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
-            $message->setConversationId($this);
+            $message->setConversationId($setConversationId);
         }
 
         return $this;

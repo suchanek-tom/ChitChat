@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Error;
 
 class ConversationController extends AbstractController
 {
@@ -33,11 +33,13 @@ class ConversationController extends AbstractController
     
     public function index(Request $request)
     {
-        $otherUser = $request->get('otherUser',default:0);
-        $otherUser = $this->userRepository->find($otherUser);
+        $otherUserId = (int) $request->query->get('otherUser');
+        dump($otherUserId);
+        $otherUser = $this->userRepository->find($otherUserId);
 
         if (is_null($otherUser)) {
-            throw new \Exception("User was not found");
+            //throw new \Exception("User was not found");
+            $this->addFlash("Error","You don't have friends");
         }
 
         // cannot create a conversation with myself
@@ -48,7 +50,7 @@ class ConversationController extends AbstractController
         // Check if conversation exists
         $conversation = $this->conversationRepository->findConversationByParticipants(
             $otherUser->getId(),
-            $this->getUser()->getUserIdentifier() //GetID
+            $this->getUser()->getId() //GetID
         );
 
 

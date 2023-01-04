@@ -171,13 +171,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getParticipants(): Collection
     {
-        return $this->participants;
+        return $this->Participant;
     }
 
     public function addParticipant(Participant $participant): self
     {
-        if (!$this->participants->contains($participant)) {
-            $this->participants[] = $participant;
+        if (!$this->Participant->contains($participant)) {
+            $this->Participant[] = $participant;
             $participant->setUserId($this);
         }
 
@@ -186,8 +186,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeParticipant(Participant $participant): self
     {
-        if ($this->participants->contains($participant)) {
-            $this->participants->removeElement($participant);
+        if ($this->Participant->contains($participant)) {
+            $this->Participant->removeElement($participant);
             // set the owning side to null (unless already changed)
             if ($participant->getUserId() === $this) {
                 $participant->setUserId(null);

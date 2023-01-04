@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\OneToOne;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 class Participant
@@ -14,7 +16,8 @@ class Participant
     private ?int $id = null;
 
     #[ORM\Column]
-    #[ORM\ManyToOne(targetEntity:"User", inversedBy:"Participants")]
+    #[OneToOne(targetEntity: User::class)]
+    #[JoinColumn(name: 'participant_id', referencedColumnName: 'id')]
     private ?int $user_id = null;
 
     #[ORM\Column]

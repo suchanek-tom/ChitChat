@@ -1,5 +1,6 @@
 import React from "react"
 import { Connect } from "react-redux"
+import { SlPaperPlane } from "react-icons/sl";
 //import * as actionCreators from '../../actions/conversation'
 
 const mapStateToProps = (state) => {
@@ -44,7 +45,7 @@ class Input extends React.Component{
                     <span
                         className="flex items-center bg-gray-700 hover:opacity-80 duration-700 rounded rounded-l-none border-0 px-3 font-bold cursor-pointer">
                         <button
-                            className="bg-gredient-dark hover:bg-gredient-light text-lg text-white font-bold py-2 px-6 rounded">Send</button>
+                            className="bg-gredient-dark hover:bg-gredient-light text-lg text-white font-bold py-2 px-6 rounded"><SlPaperPlane className=" h-5"/></button>
                     </span>
                 </form>
             </div>

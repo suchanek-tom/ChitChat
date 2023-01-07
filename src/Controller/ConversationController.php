@@ -22,7 +22,7 @@ class ConversationController extends AbstractController
         $this->entityManager = $entityManager;
         $this->conversationRepository = $conversationRepository;
     }
-    #[Route('/conversation', name: 'app_conversation', methods:'POST')]
+    #[Route('/conversation', name:'app_conversation', methods:'POST')]
 
     private $userRepository;
 

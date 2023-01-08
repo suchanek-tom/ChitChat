@@ -9,21 +9,18 @@
         <div id="app"></div>
     {% else %}
     <!--Log out-->
-     <header class="w-full h-16 drop-shadow-xl bg-slate-700">
-        <div class=" h-full flex items-center">         
-            {% if app.user %}
-            <p class=" text-white font-semibold mx-4">{{ app.user.Firstname }} {{ app.user.Lastname}}</p>
-            {% else %}
-            <p class=" text-white font-semibold mx-4">unregistered</p>
-            {% endif %}   
 
-            <img src="{{ asset('images/user.png') }}" alt="User-img" class="h-8">
-            <a href="/{{ app.user ? 'logout' : 'login' }}" class=" text-center text-white text-xl hover:text-slate-200 duration-500 mx-6 ml-auto">{{ app.user ? 'Logout' : 'Login' }}</a>
-         </div>       
-    </header>
-    <img src="{{ asset('images/logo3.png') }}" alt="ChitChat-logo" class=" m-auto block h-64">
-    <h1 class=" text-center text-3xl m-1">Welcome!</h1>
-    <p class=" text-center font-bold">You are not log in!</p>
+    <img src="{{ asset('images/logo3.png') }}" alt="ChitChat-logo" class=" m-auto block h-96">
+
+    <!--<p class=" text-4xl text-center">Simple Chat app</p>-->
+
+    <div class="text-center">
+        <a href="/{{ app.user ? 'logout' : 'login' }}" class=" text-2xl font-semibold mx-10 hover:text-3xl duration-500">
+            {{ app.user ? 'Logout' : 'Login' }}
+        </a>
+        
+        <a href="{{path('app_register')}}" class=" text-2xl font-semibold mx-10 hover:text-3xl duration-500">Register</a>
+    </div>
     {% endif %}
 
 {% endblock %}

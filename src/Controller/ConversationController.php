@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Error;
+use Symfony\Component\WebLink\Link;
 
 class ConversationController extends AbstractController
 {
@@ -30,7 +31,12 @@ class ConversationController extends AbstractController
 
     private $conversationRepository;
 
-    
+    /**
+     * @Route("/", name="newConversations", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
     public function index(Request $request)
     {
         $otherUser = (int) $request->query->get('otherUser');
@@ -43,7 +49,7 @@ class ConversationController extends AbstractController
         }
 
         // cannot create a conversation with myself
-        if ($otherUser->getId() === $this->getUser()->getUserIdentifier()) {
+        if ($otherUser->getId() === $this->getUser()->getId()) {
             throw new \Exception("That's deep but you cannot create a conversation with yourself");
         }
 
@@ -87,7 +93,15 @@ class ConversationController extends AbstractController
         return $this->json([
             'id' => $conversation->getId()
         ], Response::HTTP_CREATED, [], []);
-        
+    }
+
+    public function getConvs(Request $request){
+        $conversations = $this->conversationRepository->findConversationsByUser($this->getUser()->getId());
+
+        $hubUrl = $this->getParameter('mercure.default_hub');
+
+        $this->addLink($request, new Link('mercure', $hubUrl));
+        return $this->json($conversations);
     }
 
   

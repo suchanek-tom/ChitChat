@@ -1,6 +1,17 @@
 import React from "react";
+import Conversation from "./Conversation";
+import {connect} from "react-redux";
+import * as actionCreators from '../../actions/conversations';
 
+const mapStateToProps = (state) => {
+    return state;
+}
 class Left extends React.Component{
+
+    componentDidMount() {
+        //fetch conversations
+        this.props.fetchConversations()
+    }
 
     render(){
         return(
@@ -10,7 +21,19 @@ class Left extends React.Component{
                         <p className=" mb-0 py-1 text-center font-bold text-2xl">Recent messages</p>
                     </div>
                     <div className="">
-
+                        <div className="list-group rounded">
+                            {
+                                this.props.items
+                                    .sort((a, b) =>{
+                                        return a.createdAT < b.createdAt;
+                                    })
+                                    .map(conversation =>{
+                                    return(
+                                        <Conversation conversation={conversation}/>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -18,4 +41,4 @@ class Left extends React.Component{
     }
 }
 
-export default Left;
+export default connect(mapStateToProps, actionCreators)(Left);

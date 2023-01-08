@@ -43,7 +43,7 @@ class MessageController extends AbstractController
     /**
      * @var PublisherInterface
      */
-    private $publisher; 
+    private $publisher;
 
     public function __construct(EntityManagerInterface $entityManager,
                                 MessageRepository $messageRepository,
@@ -61,7 +61,7 @@ class MessageController extends AbstractController
 
     /*
      *
-     */
+     * */
     public function index(Request $request, Conversation $conversation)
     {
         $this->denyAccessUnlessGranted('view', $conversation);

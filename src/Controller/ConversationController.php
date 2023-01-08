@@ -33,9 +33,9 @@ class ConversationController extends AbstractController
     
     public function index(Request $request)
     {
-        $otherUserId = (int) $request->query->get('otherUser');
-        dump($otherUserId);
-        $otherUser = $this->userRepository->find($otherUserId);
+        $otherUser = (int) $request->query->get('otherUser');
+        dump($otherUser);
+        $otherUser = $this->userRepository->find($otherUser);
 
         if (is_null($otherUser)) {
             //throw new \Exception("User was not found");
@@ -50,7 +50,7 @@ class ConversationController extends AbstractController
         // Check if conversation exists
         $conversation = $this->conversationRepository->findConversationByParticipants(
             $otherUser->getId(),
-            $this->getUser()->getId() //GetID
+            $this->getUser()->getUserIdentifier() //GetID
         );
 
 

@@ -27,9 +27,9 @@ class Left extends React.Component{
                                     .sort((a, b) =>{
                                         return a.createdAT < b.createdAt;
                                     })
-                                    .map(conversation =>{
+                                    .map((conversation, index) =>{
                                     return(
-                                        <Conversation conversation={conversation}/>
+                                        <Conversation conversation={conversation} key={index}/>
                                     )
                                 })
                             }

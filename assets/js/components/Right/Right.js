@@ -1,8 +1,9 @@
 import React from "react";
-import { Connect } from "react-redux";
-
+import {connect} from "react-redux";
+import * as actionCreators from '../../actions/conversations'
 import Input from "./Input";
 import Message from "./Message";
+
 
 const mapStateToProps = (state) => {
     return state;
@@ -25,35 +26,34 @@ class Right extends React.Component{
         this.bodyRef.current.scrollTop = this.bodyRef.current.scrollHeight;
     }
 
-    componentDidUpdate(prevProps)
-    {
-        if(
-            this.state._conversationIndex != -1
-            && this.props.items[this.state._conversationIndex].messages?.lenght
-            && prevProps.items[this.state._conversationIndex].messages?.lenght
-        ){
-            this.scrollDown();
-        }
+
+    componentDidMount(){
+        this.props.fetchMessages(this.props.match.params.id)
+            .then(() => {
+              this.scrollDown();
+            });
     }
 
-    //TODO: componentDidMount()
+    componentWillUnmount() {
 
-    componentWillUnmount(){
-        if (this.state.eventSource instanceof EventSource)
-        {
-            this.state.eventSource.close();
-            this.setState({
-                eventSource: null
-            })
-        }
     }
 
     render(){
+        const _conversationIndex = this.props.items.findIndex(conversation => {
+            return conversation.conversationId == this.props.params.id;
+        })
         return(
             <div className="col-span-2">
                 <div className=" px-4 py-5 bg-white" ref={this.bodyRef}>
                     {
-                        //Message function
+                        _conversationIndex != -1 ?
+                        this.props.items[_conversationIndex].messages
+                            ?.map(message, index => {
+                                return (
+                                    <Message message={messages} key={index} />
+                                )
+                            })
+                            : ''
                     }
                 </div>
 
@@ -63,4 +63,4 @@ class Right extends React.Component{
     }
 }
 
-export default Right;
+export default connect(mapStateToProps, actionCreators)(Right);

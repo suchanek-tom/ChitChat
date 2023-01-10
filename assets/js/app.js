@@ -10,7 +10,9 @@ import App from './components/App';
 ReactDom.render(
 (
     <Provider store={store}>
-        <App/>
+        <MemoryRouter>
+            <App/>
+        </MemoryRouter>
     </Provider>
 ),
 document.getElementById('app')

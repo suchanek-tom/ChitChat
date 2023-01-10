@@ -1,11 +1,11 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 
 class Conversation extends React.Component {
     render() {
         return (
-                <div className=" border py-3 hover:bg-slate-200 cursor-pointer">
+                <NavLink to={"/conversation/" + this.props.conversation.conversationId} className=" border py-3 hover:bg-slate-200 cursor-pointer">
                     <img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user"
                          width="50" className=" float-left mx-3"/>
                     <div className=" ml-4">
@@ -15,7 +15,7 @@ class Conversation extends React.Component {
                         </div>
                         <p className="font-italic mb-0 text-small">{}</p>
                     </div>
-                </div>
+                </NavLink>
 
         );
     }

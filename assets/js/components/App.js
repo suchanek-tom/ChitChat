@@ -1,6 +1,5 @@
 import React from 'react';
-import {Route, Switch} from 'react-router-dom';
-
+import { Route, Routes } from 'react-router-dom'; //Routes = Switch
 import Left from './Left/Left';
 import Right from './Right/Right';
 import Blank from './Right/Blank';
@@ -14,8 +13,12 @@ render(){
         <div className=''>
             <div className='grid grid-rows-2 grid-flow-col'>
                 <Left />
-                <Blank />
-                <Right />
+                <Routes>
+                   <Route path={'/'} component={Blank} exact/>
+                    <Route path={'/conversation/:id'} render={
+                        props => <Right {...props} key={props.match.params.id} />
+                    }/>
+                </Routes>
             </div>
            
         </div>

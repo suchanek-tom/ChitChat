@@ -21,6 +21,16 @@ class Right extends React.Component{
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (
+            this.state._conversationIndex != -1
+            && this.props.items[this.state._conversationIndex].messages?.length
+            && prevProps.items[this.state._conversationIndex].messages?.length
+        ) {
+            this.scrollDown();
+        }
+    }
+
     //ScrollDown to the latest mess
     scrollDown() {
         this.bodyRef.current.scrollTop = this.bodyRef.current.scrollHeight;
@@ -28,6 +38,12 @@ class Right extends React.Component{
 
 
     componentDidMount(){
+        const _conversationIndex = this.props.items.findIndex(conversation => {
+            return conversation.conversationId == this.props.params.id;
+        });
+        this.setState({
+            _conversationIndex: _conversationIndex
+        });
         this.props.fetchMessages(this.props.match.params.id)
             .then(() => {
               this.scrollDown();
@@ -39,15 +55,13 @@ class Right extends React.Component{
     }
 
     render(){
-        const _conversationIndex = this.props.items.findIndex(conversation => {
-            return conversation.conversationId == this.props.params.id;
-        })
+
         return(
             <div className="col-span-2">
                 <div className=" px-4 py-5 bg-white" ref={this.bodyRef}>
                     {
-                        _conversationIndex != -1 ?
-                        this.props.items[_conversationIndex].messages
+                        this.state._conversationIndex != -1 ?
+                        this.props.items[this.state._conversationIndex].messages
                             ?.map(message, index => {
                                 return (
                                     <Message message={messages} key={index} />
@@ -57,7 +71,7 @@ class Right extends React.Component{
                     }
                 </div>
 
-                <Input />
+                <Input id={this.props.params.id}/>
             </div>
         );
     }

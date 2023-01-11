@@ -68,7 +68,7 @@ export const fetchConversations = () => dispatch => {
     dispatch(requestConversations());
     return fetch(`/conversations/`)
         .then(response => {
-            // TODO: set the HUB URL right here
+
             const hubUrl = response.headers.get('Link').match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1]
             dispatch(setHuburl(hubUrl));
             return response.json()

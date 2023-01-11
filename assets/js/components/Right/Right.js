@@ -36,9 +36,10 @@ class Right extends React.Component{
         this.bodyRef.current.scrollTop = this.bodyRef.current.scrollHeight;
     }
 
-
+    //TODO: upravit
     componentDidMount(){
-        const _conversationIndex = this.props.items.findIndex(conversation => {
+        const _conversationIndex = this.props.items.findIndex(
+            conversation => {
             return conversation.conversationId == this.props.params.id;
         });
         this.setState({
@@ -51,7 +52,12 @@ class Right extends React.Component{
     }
 
     componentWillUnmount() {
-
+        if(this.state.eventSource instanceof EventSource){
+            this.state.eventSource.close();
+            this.setState({
+                eventSource: null
+            })
+        }
     }
 
     render(){
@@ -60,18 +66,19 @@ class Right extends React.Component{
             <div className="col-span-2">
                 <div className=" px-4 py-5 bg-white" ref={this.bodyRef}>
                     {
-                        this.state._conversationIndex != -1 ?
-                        this.props.items[this.state._conversationIndex].messages
-                            ?.map(message, index => {
+                        this.state._conversationIndex != -1
+                        && this.props.items != undefined
+                        && this.props.items[this.state._conversationIndex].messages != undefined
+                            ? this.props.items[this.state._conversationIndex]
+                            .messages.map((message, index) => {
                                 return (
                                     <Message message={messages} key={index} />
                                 )
-                            })
-                            : ''
+                            }) : ''
                     }
                 </div>
 
-                <Input id={this.props.params.id}/>
+                <Input id={this.props.match.params.id}/>
             </div>
         );
     }

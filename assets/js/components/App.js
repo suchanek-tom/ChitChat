@@ -10,7 +10,7 @@ class App extends React.Component{
 
 render(){
     return(
-        <div className=''>
+        <div className='container py-5 px-3'>
             <div className='grid grid-rows-2 grid-flow-col'>
                 <Left />
                 <Routes>

@@ -47,7 +47,7 @@ class ParticipantRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findParticipantByConverstionIdAndUserId(int $conversationId, int $userId)
+    public function findParticipantByConversationIdAndUserId(int $conversationId, int $userId)
     {
         $qb = $this->createQueryBuilder('p');
         $qb->

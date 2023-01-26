@@ -16,12 +16,12 @@ class Participant
     private ?int $id = null;
 
     #[ORM\Column]
-    #[OneToOne(targetEntity: User::class)]
+    #[OneToOne(targetEntity: User::class, mappedBy: 'user_id')]
     #[JoinColumn(name: 'participant_id', referencedColumnName: 'id')]
     private ?int $user_id = null;
 
     #[ORM\Column]
-    #[ORM\ManyToOne(targetEntity:"Conversation", inversedBy:"Participants")]
+    #[ORM\ManyToOne(targetEntity: Conversation::class, inversedBy:"participants_id")]
     private ?int $conversation_id = null;
 
     #[ORM\Column]

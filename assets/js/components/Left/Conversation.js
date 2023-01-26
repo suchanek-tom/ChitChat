@@ -11,7 +11,7 @@ class Conversation extends React.Component {
                     <div className=" ml-4">
                         <div className="flex align-items-center mb-1">
                             <h6 className="mb-0 text-lg">{this.props.conversation.username}</h6>
-                            <p className=" ml-auto mr-2 font-bold">{new Date(this.props.conversation.createdAT).toLocaleDateString()}</p>
+                            <p className=" ml-auto mr-2 font-bold">{new Date(this.props.conversation.createdAt).toLocaleDateString()}</p>
                         </div>
                         <p className="font-italic mb-0 text-small">{}</p>
                     </div>

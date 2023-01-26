@@ -8,6 +8,10 @@ const mapStateToProps = (state) => {
 }
 class Left extends React.Component{
 
+    constructor(props) {
+        super(props);
+    }
+
     componentDidMount() {
         //fetch conversations
         this.props.fetchConversations()
@@ -23,9 +27,9 @@ class Left extends React.Component{
                     <div className="">
                         <div className="list-group rounded">
                             {
-                                this.props.items
+                                this.props.children
                                     .sort((a, b) =>{
-                                        return a.createdAT < b.createdAt;
+                                        return a.createdAt < b.createdAt;
                                     })
                                     .map((conversation, index) =>{
                                     return(

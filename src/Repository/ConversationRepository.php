@@ -69,18 +69,18 @@ class ConversationRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('c');
         $qb
-            ->select($qb->expr()->count('p.conversation'))
+            ->select($qb->expr()->count('p.conversation_id'))
             ->innerJoin('c.participants', 'p')
             ->where(
                 $qb->expr()->orX(
-                    $qb->expr()->eq('p.user', ':me'),
-                    $qb->expr()->eq('p.user', ':otherUser')
+                    $qb->expr()->eq('p.user_id', ':me'),
+                    $qb->expr()->eq('p.user_id', ':otherUser')
                 )
             )
-            ->groupBy('p.conversation')
+            ->groupBy('p.conversation_id')
             ->having(
                 $qb->expr()->eq(
-                    $qb->expr()->count('p.conversation'),
+                    $qb->expr()->count('p.conversation_id'),
                     2
                 )
             )
@@ -108,6 +108,6 @@ class ConversationRepository extends ServiceEntityRepository
             ->orderBy('lm.createdAt', 'DESC')
         ;
         
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }

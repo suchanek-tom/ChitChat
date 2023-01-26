@@ -3,22 +3,21 @@
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Index;
-use Laminas\Code\Generator\EnumGenerator\Name;
-use Timestamp;
+
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Message
 {
+    use Timestamp;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type:'integer')]
     private ?int $id = null;
-
     #[ORM\Column(type:'integer')]
     #[ORM\ManyToOne(targetEntity:"Conversation", inversedBy:"messages")]
     private ?int $conversation_id = null;
@@ -30,9 +29,7 @@ class Message
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
-
+    #[ORM\Column(type: 'string')]
     private $mine;
 
     public function getId(): ?int
@@ -76,12 +73,12 @@ class Message
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
@@ -91,7 +88,7 @@ class Message
      /**
      * @return mixed
      */
-    public function getMine()
+    public function getMine(): mixed
     {
         return $this->mine;
     }
@@ -99,7 +96,7 @@ class Message
     /**
      * @param mixed $mine
      */
-    public function setMine($mine): void
+    public function setMine(mixed $mine): void
     {
         $this->mine = $mine;
     }

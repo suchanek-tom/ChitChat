@@ -4,12 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Conversation;
 use App\Entity\Message;
+use App\Entity\User;
 use App\Repository\MessageRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mercure\PublisherInterface;
@@ -60,7 +60,10 @@ class MessageController extends AbstractController
 
 
     /*
-     *
+     * @Route("/{id}", name="getMessages", methods={"GET"})
+     * @param Request $request
+     * @param Conversation $conversation
+     * @return Response
      * */
     public function index(Request $request, Conversation $conversation)
     {
@@ -76,7 +79,7 @@ class MessageController extends AbstractController
         array_map(function ($message){
             $message->setMine(
                 $message->getUser()->getId() === $this->getUser()->getId()
-                ? true : false
+                    ? true : false
             );
         }, $messages);
     
@@ -85,6 +88,14 @@ class MessageController extends AbstractController
        ]);
     }
 
+    /*
+     * @Route("/{id}", name="newMessage", methods={"POST"})
+     * @param Request $request
+     * @param Conversation $conversation
+     * @param SerializerInterface $serializer
+     * @return JsonResponse
+     * @throws Exception
+     */
     public function newMessage(Request $request, Conversation $conversation, SerializerInterface $serializer)
     {
         $user = $this->getUser();

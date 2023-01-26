@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity:"Participant", mappedBy:"User")]
     private $Participant;
 
-    #[OneToMany(targetEntity:"Message", mappedBy:"User")]
+    #[ORM\OneToMany(targetEntity:"Message", mappedBy:"User")]
     private $messages;
 
     public function __construct()

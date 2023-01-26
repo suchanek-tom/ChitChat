@@ -3,35 +3,28 @@
 namespace App\Entity;
 
 use App\Repository\ConversationRepository;
-use App\Entity\Participant;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Schema\Column;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Index;
-use Laminas\Code\Generator\EnumGenerator\Name;
-use phpDocumentor\Reflection\Types\This;
 
 #[ORM\Entity(repositoryClass: ConversationRepository::class)]
-#[Table(name: 'last_message_id_index')]
-
 class Conversation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column()]
+    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(targetEntity:"Participant", mappedBy:"Conversation")]
-    private $participants;
+    #[ORM\OneToMany(targetEntity: Participant::class, mappedBy: "conversation")]
+    private ArrayCollection $participants;
 
     #[ORM\OneToOne(targetEntity:"Message")]
     #[ORM\JoinColumn(name:"last_message_id", referencedColumnName:"id")]
     private ?int $last_message_id = null;
 
-    #[ORM\OneToMany(targetEntity:"Message", mappedBy:"Conversation")]
-    private $messages;
+    #[ORM\OneToMany(targetEntity: "Message", mappedBy: "conversation")]
+    private ArrayCollection $messages;
 
     public function __construct()
     {

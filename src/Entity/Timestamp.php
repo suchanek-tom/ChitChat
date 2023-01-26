@@ -2,27 +2,26 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Mixed_;
 
 trait Timestamp
 {
 
     #[ORM\Column(type:'datetime')]
-    private $createdAt;
+    private mixed $createdAt;
 
     /**
      * @return mixed
      */
-    public function getCreatedAt()
+     function getCreatedAt()
     {
         return $this->createdAt;
-        
     }
 
     #[ORM\PrePersist]
-    public function prePersist()
+    public function prePersist(): void
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
     }
 }

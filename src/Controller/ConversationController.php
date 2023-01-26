@@ -72,12 +72,12 @@ class ConversationController extends AbstractController
 
         $participant = new Participant();
         $participant->setUserId($this->getUser());
-        $participant->setConversationId($otherUser); //$conversation
+        $participant->setConversationId($conversation->getId()); //$conversation
 
-
+        dump($participant);
         $otherParticipant = new Participant();
         $otherParticipant->setUserId($otherUser);
-        $otherParticipant->setConversationId($conversation); //$conversation
+        $otherParticipant->setConversationId($conversation->getId()); //$conversation
 
         $this->entityManager->getConnection()->beginTransaction();
         try {

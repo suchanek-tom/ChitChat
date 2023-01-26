@@ -18,11 +18,10 @@ class Message
     #[ORM\GeneratedValue]
     #[ORM\Column(type:'integer')]
     private ?int $id = null;
-    #[ORM\Column(type:'integer')]
-    #[ORM\ManyToOne(targetEntity:"Conversation", inversedBy:"messages")]
+
+    #[ORM\ManyToOne(targetEntity: Conversation::class, inversedBy:"messages")]
     private ?int $conversation_id = null;
 
-    #[ORM\Column]
     #[ORM\ManyToOne(targetEntity:"User", inversedBy:"messages")]
     private ?int $user_id = null;
 

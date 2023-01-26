@@ -16,21 +16,17 @@ class Conversation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(targetEntity: Participant::class, mappedBy: "conversation")]
-    private ArrayCollection $participants;
+    #[ORM\OneToMany(targetEntity: Participant::class, mappedBy: "conversation_id")]
+    #[ORM\JoinColumn(name:"participant_id", referencedColumnName:"id")]
+    private Collection $participants;
 
-    #[ORM\OneToOne(targetEntity:"Message")]
+    #[ORM\OneToOne(targetEntity: Message::class)]
     #[ORM\JoinColumn(name:"last_message_id", referencedColumnName:"id")]
     private ?int $last_message_id = null;
 
-    #[ORM\OneToMany(targetEntity: "Message", mappedBy: "conversation")]
-    private ArrayCollection $messages;
-
-    public function __construct()
-    {
-        $this->participants = new ArrayCollection();
-        $this->messages = new ArrayCollection();
-    }
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: "conversation_id")]
+    #[ORM\JoinColumn(name:"conversation_id", referencedColumnName:"id")]
+    private Collection $messages;
 
     public function getId(): ?int
     {

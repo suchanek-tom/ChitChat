@@ -40,15 +40,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $Lastname = null;
 
-    #[ORM\OneToMany(targetEntity:"Participant", mappedBy:"User")]
-    private $Participant;
+    #[ORM\OneToMany(targetEntity: Participant::class, mappedBy: 'user_id')]
+    private $participant;
 
-    #[ORM\OneToMany(targetEntity:"Message", mappedBy:"User")]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: "user_id")]
     private $messages;
 
     public function __construct()
     {
-        $this->Participant = new ArrayCollection();
+        $this->participant = new ArrayCollection();
         $this->messages = new ArrayCollection();
     }
 
@@ -171,13 +171,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getParticipants(): Collection
     {
-        return $this->Participant;
+        return $this->participant;
     }
 
     public function addParticipant(Participant $participant): self
     {
-        if (!$this->Participant->contains($participant)) {
-            $this->Participant[] = $participant;
+        if (!$this->participant->contains($participant)) {
+            $this->participant[] = $participant;
             $participant->setUserId($this);
         }
 
@@ -186,8 +186,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeParticipant(Participant $participant): self
     {
-        if ($this->Participant->contains($participant)) {
-            $this->Participant->removeElement($participant);
+        if ($this->participant->contains($participant)) {
+            $this->participant->removeElement($participant);
             // set the owning side to null (unless already changed)
             if ($participant->getUserId() === $this) {
                 $participant->setUserId(null);

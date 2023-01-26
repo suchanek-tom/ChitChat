@@ -15,17 +15,16 @@ class Participant
     #[ORM\Column(type:'integer')]
     private ?int $id = null;
 
-    #[ORM\Column]
-    #[OneToOne(targetEntity: User::class, mappedBy: 'user_id')]
-    #[JoinColumn(name: 'participant_id', referencedColumnName: 'id')]
-    private ?int $user_id = null;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'participant')]
+    #[ORM\JoinColumn(name: 'participant_id', referencedColumnName: 'id')]
+    private ?User $user_id = null;
 
-    #[ORM\Column]
-    #[ORM\ManyToOne(targetEntity: Conversation::class, inversedBy:"participants_id")]
+    #[ORM\ManyToOne(targetEntity: Conversation::class, inversedBy:"participants")]
+    #[ORM\JoinColumn(name: 'conversation_id', referencedColumnName: 'id')]
     private ?int $conversation_id = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $messages_read_at = null;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $messages_read_at = null;
 
     public function getId(): ?int
     {
@@ -37,7 +36,7 @@ class Participant
         return $this->user_id;
     }
 
-    public function setUserId(?int $user_id): self
+    public function setUserId(?User $user_id): self
     {
         $this->user_id = $user_id;
 

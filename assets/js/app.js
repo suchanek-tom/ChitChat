@@ -8,7 +8,7 @@ import * as actionCreators from './actions/conversations'
 
 import App from './components/App';
 
-store.dispatch(actionCreators.setUsername(document.querySelector('#app').dataset.username));
+//store.dispatch(actionCreators.setUsername(document.querySelector('#app').dataset.username));
 
 ReactDom.render(
 (
@@ -18,6 +18,4 @@ ReactDom.render(
         </MemoryRouter>
     </Provider>
 ),
-document.getElementById('app')
-
-);
+document.getElementById('app'));

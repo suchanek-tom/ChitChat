@@ -6,7 +6,7 @@ import {
     ADD_MESSAGE,
     POST_MESSAGE,
     SET_HUBURL,
-    SET_USERNAME,
+    SET_EMAIL,
     SET_LAST_MESSAGE
 } from "../constants/actionTypes";
 
@@ -57,16 +57,16 @@ export const setHuburl = (url) => {
     };
 };
 
-export const setUsername = (username) => {
+export const setUsername = (email) => {
     return {
-        type: SET_USERNAME,
-        username
+        type: SET_EMAIL,
+        email
     }
 };
 
 export const fetchConversations = () => dispatch => {
     dispatch(requestConversations());
-    return fetch(`/conversations/`)
+    return fetch(`/conversation/`)
         .then(response => {
 
             const hubUrl = response.headers.get('Link').match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1]
@@ -80,7 +80,7 @@ export const fetchConversations = () => dispatch => {
 
 export const fetchMessages = (id) => dispatch => {
     dispatch(requestMessages(id));
-    return fetch(`/messages/${id}`)
+    return fetch(`/message/${id}`)
         .then(response => response.json())
         .then(json => {
             return dispatch(receiveMessages(json, id))
@@ -91,7 +91,7 @@ export const fetchMessages = (id) => dispatch => {
 export const addMessage = (content, conversationId) => dispatch => {
     let formData = new FormData();
     formData.append('content', content);
-    return fetch(`/messages/${conversationId}`, {
+    return fetch(`/message/${conversationId}`, {
         method: "POST",
         body: formData
     })

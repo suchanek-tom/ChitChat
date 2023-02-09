@@ -12,10 +12,23 @@ class Left extends React.Component{
         super(props);
     }
 
-    componentDidMount() {
-        //fetch conversations
+    componentWillMount() {
+        const _t = this;
         this.props.fetchConversations()
+            .then(() => {
+                let url = new URL(this.props.hubUrl);
+                url.searchParams.append('topic', `/conversation/${this.props.email}`);
+                const eventSource = new EventSource(url, {
+                    withCredentials: true
+                });
+                eventSource.onmessage = function (event) {
+                    debugger
+                    const data = JSON.parse(event.data);
+                    _t.props.setLastMessage(data, data.conversation.id);
+                }
+            });
     }
+
 
     render(){
         return(
@@ -27,15 +40,18 @@ class Left extends React.Component{
                     <div className="">
                         <div className="list-group rounded">
                             {
-                                this.props.children
-                                    .sort((a, b) =>{
-                                        return a.createdAt < b.createdAt;
-                                    })
-                                    .map((conversation, index) =>{
-                                    return(
-                                        <Conversation conversation={conversation} key={index}/>
-                                    )
-                                })
+                                this.props.items != undefined ?
+
+                                    this.props.items
+                                        .sort((a, b) => {
+                                            return a.createdAt < b.createdAt;
+                                        })
+                                        .map((conversation, index) => {
+                                            return (
+                                                <Conversation conversation={conversation} key={index}/>
+                                            )
+                                        })
+                                    : ''
                             }
                         </div>
                     </div>

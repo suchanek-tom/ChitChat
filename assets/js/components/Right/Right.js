@@ -24,8 +24,8 @@ class Right extends React.Component{
     componentDidUpdate(prevProps) {
         if (
             this.state._conversationIndex != -1
-            && this.props.items[this.state._conversationIndex].messages?.length
-            && prevProps.items[this.state._conversationIndex].messages?.length
+            && this.props.items[this.state._conversationIndex].message?.length
+            && prevProps.items[this.state._conversationIndex].message?.length
         ) {
             this.scrollDown();
         }
@@ -36,19 +36,38 @@ class Right extends React.Component{
         this.bodyRef.current.scrollTop = this.bodyRef.current.scrollHeight;
     }
 
-    //TODO: upravit
-    componentDidMount(){
+    
+    componentDidMount() {
+        const _t = this;
+        const id = this.props.match.params.id;
         const _conversationIndex = this.props.items.findIndex(
             conversation => {
-            return conversation.conversationId == this.props.params.id;
-        });
+                return conversation.conversationId == this.props.match.params.id
+            }
+        );
         this.setState({
             _conversationIndex: _conversationIndex
         });
-        this.props.fetchMessages(this.props.match.params.id)
-            .then(() => {
-              this.scrollDown();
+        if (this.props.items[_conversationIndex].messages == undefined) {
+            this.props.fetchMessages(id).then(() => {
+                this.scrollDown();
+                if (this.state.eventSource === null) {
+                    let url = new URL(this.props.hubUrl);
+                    url.searchParams.append('topic', `/conversation/${this.props.match.params.id}`)
+                    this.eventSource = new EventSource(url, {
+                        withCredentials: true
+                    });
+                    this.eventSource.onmessage = function (event) {
+                        const data = JSON.parse(event.data);
+                        debugger
+                        _t.props.postMessage(data, data.conversation.id);
+                    }
+                }
             });
+        } else {
+            this.scrollDown();
+        }
+
     }
 
     componentWillUnmount() {
@@ -72,7 +91,7 @@ class Right extends React.Component{
                             ? this.props.items[this.state._conversationIndex]
                             .messages.map((message, index) => {
                                 return (
-                                    <Message message={messages} key={index} />
+                                    <Message message={message} key={index} />
                                 )
                             }) : ''
                     }

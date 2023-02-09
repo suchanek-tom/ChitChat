@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "46448788be552509213be98cb3277ce7",
+    "content-hash": "d7bed4b9804ce4b124fff797aac23c09",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -7716,16 +7716,16 @@
         },
         {
             "name": "symfony/ux-react",
-            "version": "v2.6.1",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-react.git",
-                "reference": "eba51f023d0096c4ac6cdb6799ecf79eb873784e"
+                "reference": "4226dd4078ed6c320b383ea3c52050e62467cfe0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-react/zipball/eba51f023d0096c4ac6cdb6799ecf79eb873784e",
-                "reference": "eba51f023d0096c4ac6cdb6799ecf79eb873784e",
+                "url": "https://api.github.com/repos/symfony/ux-react/zipball/4226dd4078ed6c320b383ea3c52050e62467cfe0",
+                "reference": "4226dd4078ed6c320b383ea3c52050e62467cfe0",
                 "shasum": ""
             },
             "require": {
@@ -7769,7 +7769,7 @@
                 "symfony-ux"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-react/tree/v2.6.1"
+                "source": "https://github.com/symfony/ux-react/tree/v2.7.1"
             },
             "funding": [
                 {
@@ -7785,7 +7785,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-28T17:55:37+00:00"
+            "time": "2023-01-24T15:40:19+00:00"
         },
         {
             "name": "symfony/validator",

@@ -22,7 +22,7 @@ class Conversation
 
     #[ORM\OneToOne(targetEntity: Message::class)]
     #[ORM\JoinColumn(name:"last_message_id", referencedColumnName:"id")]
-    private ?int $last_message_id = null;
+    private Message|null $last_message_id = null;
 
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: "conversation_id")]
     #[ORM\JoinColumn(name:"conversation_id", referencedColumnName:"id")]
@@ -33,12 +33,12 @@ class Conversation
         return $this->id;
     }
 
-    public function getLastMessageId(): ?int
+    public function getLastMessageId(): ?Message
     {
         return $this->last_message_id;
     }
 
-    public function setLastMessageId(int $last_message_id): self
+    public function setLastMessageId(?Message $last_message_id): self
     {
         $this->last_message_id = $last_message_id;
 
@@ -83,7 +83,7 @@ class Conversation
         return $this->messages;
     }
 
-    public function addMessage(Message $message, ?int $setConversationId): self
+    public function addMessage(Message $message, ?int $setConversationId = null): self
     {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;

@@ -110,9 +110,16 @@ class MessageController extends AbstractController
     {
         $user = $this->getUser();
 
-        $recipent = $this->participantRepository->findParticipantByConverstionIdAndUserId(
-            $conversationId,
-            $user->getId()
+        if (!$user) {
+            // TODO: vrátit chybu že není user
+        }
+
+        $conversation = $this->entityManager->getRepository(Conversation::class)->find($conversationId);
+
+
+        $recipent = $this->participantRepository->findParticipantByConversationIdAndUserId(
+            $conversation,
+            $user
         );
 
         $content = $request->get('content', null);

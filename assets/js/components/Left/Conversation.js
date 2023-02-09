@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 class Conversation extends React.Component {
@@ -13,7 +13,7 @@ class Conversation extends React.Component {
                             <h6 className="mb-0 text-lg">{this.props.conversation.email}</h6>
                             <p className=" ml-auto mr-2 font-bold">{new Date(this.props.conversation.createdAt).toLocaleDateString()}</p>
                         </div>
-                        <p className="font-italic mb-0 text-small">{}</p>
+                        <p className="font-italic mb-0 text-small">{this.props.conversation.content}</p>
                     </div>
                 </NavLink>
 

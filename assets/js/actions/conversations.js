@@ -57,16 +57,16 @@ export const setHuburl = (url) => {
     };
 };
 
-export const setUsername = (email) => {
+export function setEmail(email) {
     return {
         type: SET_EMAIL,
         email
-    }
-};
+    };
+}
 
 export const fetchConversations = () => dispatch => {
     dispatch(requestConversations());
-    return fetch(`/conversation/`)
+    return fetch(`/conversation`)
         .then(response => {
 
             const hubUrl = response.headers.get('Link').match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1]

@@ -23,14 +23,14 @@ class ConversationVoter extends Voter
 
     protected function supports(string $attribute, $subject)
     {
-        return $attribute == self::VIEW && $subject instanceof Conversation;
+        return $attribute == self::VIEW && $subject instanceof conversation;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
     {
         $result = $this->conversationRepository->checkIfUserisParticipant(
             $subject->getId(),
-            $token->getUser()->getUserIdentifier() //GetId()
+            $token->getUser()->getId()
         );
 
         return !!$result;

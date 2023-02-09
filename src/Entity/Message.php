@@ -20,10 +20,10 @@ class Message
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: Conversation::class, inversedBy:"messages")]
-    private ?int $conversation_id = null;
+    private $conversation_id = null;
 
     #[ORM\ManyToOne(targetEntity:"User", inversedBy:"messages")]
-    private ?int $user_id = null;
+    private $user_id = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
@@ -48,7 +48,7 @@ class Message
         return $this;
     }
 
-    public function getUserId(): ?int
+    public function getUserId()
     {
         return $this->user_id;
     }
@@ -74,12 +74,12 @@ class Message
 
     public function getCreatedAt(): ?DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     public function setCreatedAt(DateTimeInterface $created_at): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $created_at;
 
         return $this;
     }

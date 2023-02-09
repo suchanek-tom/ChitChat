@@ -2,9 +2,9 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
-message:
-    path: /message
-    controller: App\Controller\MessageController::index
+#message:
+#    path: /message
+#    controller: App\Controller\MessageController::index
 
 conversation:
     path: /conversation 

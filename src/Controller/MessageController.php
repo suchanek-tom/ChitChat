@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Repository\MessageRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,8 +21,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class MessageController extends AbstractController
 {
-    #[Route('/message', name: 'getMessages')] //route /{id}
-
     const ATTRIBUTES_TO_SERIALIZE = ['id', 'content', 'createdAt', 'mine'];
 
     /**
@@ -59,49 +58,60 @@ class MessageController extends AbstractController
     }
 
 
-    /*
-     * @Route("/{id}", name="getMessages", methods={"GET"})
+    /**
+     * @Route("message/{conversationId}", name="getMessages", methods={"GET"})
      * @param Request $request
-     * @param Conversation $conversation
+     * @param int $conversationId
      * @return Response
-     * */
-    public function index(Request $request, Conversation $conversation)
+     */
+    public function index(Request $request, int $conversationId)
     {
-        $this->denyAccessUnlessGranted('view', $conversation);
+        $conversation = $this->entityManager->getRepository(Conversation::class)->find($conversationId);
+
+        //$this->denyAccessUnlessGranted('view', $conversation);
 
         $messages = $this->messageRepository->findMessageByConversationId(
-            $conversation->getId()
+            $conversation
         );
 
-        /**
-         * @var $message Message
-         */
-        array_map(function ($message){
-            $message->setMine(
-                $message->getUser()->getId() === $this->getUser()->getId()
-                    ? true : false
-            );
-        }, $messages);
-    
-       return $this->json($messages, Response::HTTP_OK, [],[
+        if ($messages) {
+            $httpJsonStatus = Response::HTTP_OK;
+
+            /**
+             * @var $message Message
+             */
+            array_map(function ($message){
+                $message->setMine(
+                    $message->getUserId() === $this->getUser()
+                        ? true : false
+                );
+            }, $messages);
+
+            $httpJsonData = $messages;
+        } else {
+            $httpJsonStatus = Response::HTTP_NOT_FOUND;
+            $httpJsonData = ["status" => "Not Found"];
+        }
+
+       return $this->json($httpJsonData, $httpJsonStatus, [],[
            'attributes' => self::ATTRIBUTES_TO_SERIALIZE
        ]);
     }
 
-    /*
-     * @Route("/{id}", name="newMessage", methods={"POST"})
+    /**
+     * @Route("/message/new/{conversationId}", name="newMessage", methods={"POST"})
      * @param Request $request
-     * @param Conversation $conversation
+     * @param int $conversationId
      * @param SerializerInterface $serializer
      * @return JsonResponse
      * @throws Exception
      */
-    public function newMessage(Request $request, Conversation $conversation, SerializerInterface $serializer)
+    public function newMessage(Request $request, int $conversationId, SerializerInterface $serializer)
     {
         $user = $this->getUser();
 
         $recipent = $this->participantRepository->findParticipantByConverstionIdAndUserId(
-            $conversation->getId(),
+            $conversationId,
             $user->getId()
         );
 
@@ -129,7 +139,7 @@ class MessageController extends AbstractController
         ]);
         $update = new Update(
             [
-                sprintf("/conversations/%s", $conversation->getId()),
+                sprintf("/conversation/%s", $conversation->getId()),
                 sprintf("/conversation/%s", $recipent->getUser()->getEmail()),
             ],
             $messageSerialized,

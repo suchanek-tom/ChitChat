@@ -1,6 +1,7 @@
-import React from "react";
-import {connect} from "react-redux";
+import React from "react"
+import {connect} from "react-redux"
 import * as actionCreators from '../../actions/conversations'
+
 import Input from "./Input";
 import Message from "./Message";
 
@@ -91,13 +92,13 @@ class Right extends React.Component{
                             ? this.props.items[this.state._conversationIndex]
                             .messages.map((message, index) => {
                                 return (
-                                    <Message message={message} key={index} />
+                                    <Message />
                                 )
                             }) : ''
                     }
                 </div>
 
-                <Input id={this.props.match.params.id}/>
+                <Input/>
             </div>
         );
     }

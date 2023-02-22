@@ -8,7 +8,7 @@ import * as actionCreators from './actions/conversations'
 
 import App from './components/App';
 
-//store.dispatch(actionCreators.setUsername(document.querySelector('#app').dataset.username));
+//store.dispatch(actionCreators.setEmail(document.querySelector('#app').dataset.email));
 
 ReactDom.render(
 (

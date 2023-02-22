@@ -5,9 +5,8 @@ import {
     RECIEVE_MESSAGES,
     ADD_MESSAGE,
     POST_MESSAGE,
-    SET_HUBURL,
-    SET_EMAIL,
-    SET_LAST_MESSAGE
+    SET_HUBURL, SET_LAST_MESSAGE,
+    SET_EMAIL
 } from "../constants/actionTypes";
 
 export const requestConversations = () => ({
@@ -57,20 +56,12 @@ export const setHuburl = (url) => {
     };
 };
 
-export function setEmail(email) {
-    return {
-        type: SET_EMAIL,
-        email
-    };
-}
+
 
 export const fetchConversations = () => dispatch => {
     dispatch(requestConversations());
-    return fetch(`/conversation`)
+    return fetch(`/conversation/`)
         .then(response => {
-
-            const hubUrl = response.headers.get('Link').match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1]
-            dispatch(setHuburl(hubUrl));
             return response.json()
         })
         .then(json => {

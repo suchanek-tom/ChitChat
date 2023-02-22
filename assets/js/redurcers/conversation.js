@@ -16,8 +16,7 @@ export default (state = {
         case GET_CONVERSATIONS:
             return {
                 ...state,
-                isFetching: true,
-                didInvalidate: false
+                items: action.items
             };
         case RECIEVE_CONVERSATIONS:
             return {

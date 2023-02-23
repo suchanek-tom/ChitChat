@@ -11,11 +11,11 @@ class Message extends React.Component{
         return(
             <div className={"w-10 mb-3 ${this.props.message.mine ? 'ml-auto' : ''}"} >
                 {img}
-                <div className={"ml-3"}>
-                    <div className={"rounded py-2 px-3 mb-2 ${this.props.message.mine ? 'bg-slate-400' : 'bg-white'}"}>
-                        <p className={"text-xs mb-1 ${this.props.message.mine ? 'text-white' : 'text-black'} "}>{this.props.content}</p>
+                <div className="ml-3">
+                    <div className="rounded py-2 px-3 mb-2 ${this.props.message.mine ? 'bg-slate-400' : 'bg-white'}">
+                        <p className="text-xs mb-1 ${this.props.message.mine ? 'text-white' : 'text-black'}">{this.props.message.content}</p>
                     </div>
-                    <p className={"text-xs"}>{new Date(this.props.message.createdAT).toLocaleDateString()}</p>
+                    <p className="text-xs">{new Date(this.props.messages.createdAt).toLocaleDateString()}</p>
                 </div>
             </div>
         );

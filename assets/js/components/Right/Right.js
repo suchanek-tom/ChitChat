@@ -89,16 +89,18 @@ class Right extends React.Component{
                         this.state._conversationIndex != -1
                         && this.props.items != undefined
                         && this.props.items[this.state._conversationIndex].messages != undefined
+
                             ? this.props.items[this.state._conversationIndex]
                             .messages.map((message, index) => {
                                 return (
-                                    <Message />
+                                    <Message message={message} key={index} />
                                 )
-                            }) : ''
+                            }) 
+                            : ''
                     }
                 </div>
 
-                <Input/>
+                <Input />
             </div>
         );
     }

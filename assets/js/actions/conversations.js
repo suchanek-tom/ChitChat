@@ -22,14 +22,14 @@ export const receiveConversations = (json) => {
 
 export const requestMessages = (id) => ({
     type: GET_MESSAGES,
-    conversationId: id
+    conversation_id: id
 });
 
 export const receiveMessages = (json, id) => {
     return ({
         type: RECIEVE_MESSAGES,
-        messages: json,
-        conversationId: id
+        message: json,
+        conversation_id: id
     });
 };
 
@@ -37,15 +37,15 @@ export const postMessage = (json, id) => {
     return {
         type: ADD_MESSAGE,
         message: json,
-        conversationId: id
+        conversation_id: id
     }
 };
 
-export const setLastMessage = (message, conversationId) => {
+export const setLastMessage = (message, conversation_id) => {
     return {
         type: SET_LAST_MESSAGE,
         message,
-        conversationId
+        conversation_id
     }
 };
 
@@ -79,16 +79,16 @@ export const fetchMessages = (id) => dispatch => {
 };
 
 
-export const addMessage = (content, conversationId) => dispatch => {
+export const addMessage = (content, conversation_id) => dispatch => {
     let formData = new FormData();
     formData.append('content', content);
-    return fetch(`/message/${conversationId}`, {
+    return fetch(`/message/${conversation_id}`, {
         method: "POST",
         body: formData
     })
         .then(response => response.json())
         .then(json => {
-            dispatch(setLastMessage(json, conversationId))
-            return dispatch(postMessage(json, conversationId))
+            dispatch(setLastMessage(json, conversation_id))
+            return dispatch(postMessage(json, conversation_id))
         })
 };

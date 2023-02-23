@@ -13,15 +13,10 @@ class Left extends React.Component{
         super(props);
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         const _t = this;
         this.props.fetchConversations()
             .then(() => {
-                let url = new URL(this.props.hubUrl);
-                url.searchParams.append('topic', `/conversation/${this.props.email}`);
-                const eventSource = new EventSource(url, {
-                    withCredentials: true
-                });
                 eventSource.onmessage = function (event) {
                     debugger
                     const data = JSON.parse(event.data);

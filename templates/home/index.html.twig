@@ -17,18 +17,22 @@
         </div>
         <div id="app"></div>
     {% else %}
-
     <!--***LOG OUT***-->
-    <img src="{{ asset('images/logo3.png') }}" alt="ChitChat-logo" class=" m-auto block h-96">
-
-    <!--<p class=" text-4xl text-center">Simple Chat app</p>-->
-
-    <div class="text-center">
-        <a href="/{{ app.user ? 'logout' : 'login' }}" class=" text-2xl font-semibold mx-10 hover:text-3xl duration-500">
-            {{ app.user ? 'Logout' : 'Login' }}
-        </a>
+    <div class=" md:flex md:h-screen md:my-auto md:items-center md:justify-center text-center">
         
-        <a href="{{path('app_register')}}" class=" text-2xl font-semibold mx-10 hover:text-3xl duration-500">Register</a>
+            <img src="{{ asset('images/ChitChat-logo.png') }}" alt="ChitChat-logo" class=" h-96 md:block mx-auto md:mx-1">
+                <div class="">
+                    <p class=" mt-4 text-slate-500 text-xl text-center">Simple chat app.</p>
+
+                        <button
+                            type="button"
+                            class="inline-block my-3 rounded bg-sky-900 px-6 pt-2.5 pb-2 leading-normal shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-sky-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-blue-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+                                <a href="/{{ app.user ? 'logout' : 'login' }}" class=" text-white font-bold p-1 text-lg">
+                                    {{ app.user ? 'Logout' : 'Login' }}
+                                </a>
+                        </button>
+                </div>
+
     </div>
     {% endif %}
 

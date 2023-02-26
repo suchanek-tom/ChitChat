@@ -2,7 +2,7 @@ import {
     GET_CONVERSATIONS, RECIEVE_CONVERSATIONS,
     GET_MESSAGES, RECIEVE_MESSAGES,
     POST_MESSAGE, ADD_MESSAGE, SET_HUBURL,
-    SET_LAST_MESSAGE
+    SET_LAST_MESSAGE, SET_USERNAME
 } from "../constants/actionTypes";
 
 export default (state = {
@@ -16,6 +16,7 @@ export default (state = {
         case GET_CONVERSATIONS:
             return {
                 ...state,
+                isFetching: true,
                 items: action.items
             };
         case RECIEVE_CONVERSATIONS:
@@ -84,6 +85,11 @@ export default (state = {
                 isFetching: false,
                 didInvalidate: false,
                 hubUrl: action.url
+            };
+        case SET_USERNAME:
+            return {
+                ...state,
+                username: action.username
             };
         default:
             return state;

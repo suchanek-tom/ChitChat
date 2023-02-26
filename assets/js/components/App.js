@@ -19,9 +19,8 @@ render(){
                 </Routes>
             </div>
         </div>
-        )
-          
-}
+        );
+    }
 }
 
 export default App;

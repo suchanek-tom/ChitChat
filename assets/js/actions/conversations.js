@@ -6,7 +6,7 @@ import {
     ADD_MESSAGE,
     POST_MESSAGE,
     SET_HUBURL, SET_LAST_MESSAGE,
-    SET_EMAIL
+    SET_USERNAME
 } from "../constants/actionTypes";
 
 export const requestConversations = () => ({
@@ -56,12 +56,19 @@ export const setHuburl = (url) => {
     };
 };
 
-
+export const setUsername = (username) => {
+  return{
+      type: SET_USERNAME,
+      username
+  }
+};
 
 export const fetchConversations = () => dispatch => {
     dispatch(requestConversations());
     return fetch(`/conversation/`)
         .then(response => {
+            const hubUrl = response.headers.get('Link').match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1]
+            dispatch(setHuburl(hubUrl));
             return response.json()
         })
         .then(json => {

@@ -11,7 +11,6 @@ const mapStateToProps = (state) => {
 };
 
 class Right extends React.Component{
-    
     constructor(props){
         super(props);
         this.bodyRef = React.createRef();
@@ -99,7 +98,7 @@ class Right extends React.Component{
                     }
                 </div>
 
-                <Input />
+                <Input id={this.props.match.params.id}/>
             </div>
         );
     }

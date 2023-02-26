@@ -8,7 +8,6 @@ const mapStateToProps = (state) => {
     return state;
 }
 class Left extends React.Component{
-
     constructor(props) {
         super(props);
     }
@@ -17,6 +16,11 @@ class Left extends React.Component{
         const _t = this;
         this.props.fetchConversations()
             .then(() => {
+                let url = new URL(this.props.hubUrl);
+                url.searchParams.append('topic', `/conversation/${this.props.username}`);
+                const eventSource = new EventSource(url, {
+                    withCredentials: true
+                });
                 eventSource.onmessage = function (event) {
                     debugger
                     const data = JSON.parse(event.data);
@@ -37,13 +41,13 @@ class Left extends React.Component{
                         <div className="list-group rounded">
                            {
                                 this.props.items != undefined ?
-                                 
+
                                     this.props.items
                                     .sort((a, b) => {
                                         return a.createdAt < b.createdAt;
                                     })
-                                    .map(conversation => {
-                                        return(
+                                    .map((conversation, index) => {
+                                        return (
                                             <Conversation conversation={conversation} key={index}/>
                                         )
                                     })

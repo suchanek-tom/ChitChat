@@ -99,7 +99,7 @@ class ConversationController extends AbstractController
         ], Response::HTTP_CREATED, [], []);
     }
 
-    /*
+    /**
      * @Route("/", name="getConversations", methods={"GET"})
      * @param Request $request
      * @return JsonResponse

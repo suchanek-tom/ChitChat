@@ -14,6 +14,10 @@ class HomeController extends AbstractController
     public function index(): Response
     {
 
+        $token = (new Builder())
+            ->withClaim()
+        ;
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);

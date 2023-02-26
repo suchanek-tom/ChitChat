@@ -32,14 +32,15 @@
                 {
                     label: 'Password'
                 }) }}
-                <!--Strenght-checker-->
                 
+                <!--Strenght-checker-->
+                <div class=" text-center font-semibold uppercase my-2">
+                    {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'm-2'}}) }}
+                </div>
 
-                {{ form_row(registrationForm.agreeTerms,    {'attr': {'class': ''}}) }}
+                <button type="submit" class="w-full text-xl cursor-pointer rounded p-1 bg-slate-600 duration-500 hover:bg-slate-500 font-bold text-white">Register</button>
 
-                <button type="submit" class="w-full cursor-pointer rounded p-1 bg-slate-600 duration-500 hover:bg-slate-500 font-bold text-white">Register</button>
-
-                <p class="text-center my-5">Already have account <a href="{{path('app_login')}}" class="text-slate-600 hover:underline font-bold pt-4">Sign here</a></p>
+                <p class="text-center my-5">Already have account? <a href="{{path('app_login')}}" class="text-slate-600 hover:underline font-bold pt-2">Sign here</a></p>
 
         {{ form_end(registrationForm) }}
 

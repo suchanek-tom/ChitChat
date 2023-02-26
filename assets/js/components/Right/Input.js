@@ -47,7 +47,7 @@ class Input extends React.Component{
                     />
                     <span className="flex items-center bg-gray-700 hover:opacity-80 duration-700 rounded rounded-l-none border-0 px-3 font-bold cursor-pointer">
                         <button
-                            type={"submit"}
+                            type={submit}
                             onClick={this.sendMessage}
                             className="bg-gredient-dark hover:bg-gredient-light text-lg text-white font-bold py-2 px-6 rounded">
                             <SlPaperPlane className=" h-5"/>

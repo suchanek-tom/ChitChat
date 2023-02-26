@@ -117,9 +117,9 @@ class MessageController extends AbstractController
         $conversation = $this->entityManager->getRepository(Conversation::class)->find($conversationId);
 
 
-        $recipent = $this->participantRepository->findParticipantByConversationIdAndUserId(
-            $conversation,
-            $user
+        $recipient = $this->participantRepository->findParticipantByConversationIdAndUserId(
+            $conversation -> getId(),
+            $user -> getId()
         );
 
         $content = $request->get('content', null);
@@ -147,11 +147,11 @@ class MessageController extends AbstractController
         $update = new Update(
             [
                 sprintf("/conversation/%s", $conversation->getId()),
-                sprintf("/conversation/%s", $recipent->getUser()->getEmail()),
+                sprintf("/conversation/%s", $recipient->getUser()->getUsername()),
             ],
             $messageSerialized,
             [
-                sprintf("/%s", $recipent->getUser()->getEmail())
+                sprintf("/%s", $recipient->getUser()->getUsername())
             ]
         );
 

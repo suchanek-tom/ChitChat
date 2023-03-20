@@ -1,36 +1,41 @@
+{# Přihlašovací stránka #}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}ChitChat | Log in{% endblock %}
 
 {% block body %}
 
-
 <div class="flex w-full h-screen items-center justify-center">
-
+    <!--Formulář-->
 <form method="post" class="bg-white rounded-lg border-2 px-10 pt-6 pb-8  mb-2 shadow-lg hover:shadow-xl duration-500">
-    
-    <!--Logo-img-->
+
+    <!--Logo ChitChat-->
     <img src="{{ asset('images/ChitChat-logo-7.png') }}" alt="ChitChat-logo" class="block ml-auto mr-auto">
-    <!--Line-->
+
+    <!--Horizontální čára-->
     <hr class=" m-3">
-    <!--Error lines-->
+
+    <!--Chybná hláška, která se objeví při vyplnění špatného emailu nebo hesla-->
     {% if error %}
         <div class=" w-full text-center p-1 rounded text-red-900 font-bold bg-red-400 my-2">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
+    <!--Když uživatel je přihlášený a dostane se na přihlašovací stránku, tak se
+     vypíše hláška, že jsme přihlášení a nabídne nám to odkaz pro odhlášení-->
     {% if app.user %}
         <div class="mb-3 text-xs">
             You are logged in as <b>{{ app.user.userIdentifier }}</b><br> <a href="{{ path('app_logout') }}" class="text-slate-600 hover:underline font-bold">Logout</a>
         </div>
     {% endif %}
 
-    <!--E-mail-->
+    <!--Vstupní pole pro E-mail-->
     <label for="inputEmail" class=" block my-2">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" 
     class="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outlin" 
     autocomplete="email" placeholder="Enter email..." required autofocus>
 
-    <!--Password-->
+    <!--Vstupní pole pro heslo-->
     <label for="password" class=" block my-2">Password</label>
     <input type="password" name="password" id="password" 
     class="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="current-password" placeholder="Enter password..." required>
@@ -42,22 +47,24 @@
            value="{{ csrf_token('authenticate') }}"
     >
 
+        <!--Tlačítko "remember me"-->
         <div class="checkbox m-3">
             <label>
                 <input type="checkbox" name="_remember_me" class=""> Remember me
             </label>
         </div>
-    
+
+    <!--Tlačítko pro přihlášení-->
     <div class="my-4">
         <button class="w-full cursor-pointer rounded p-1 bg-slate-600 duration-500 hover:bg-slate-500 font-bold text-white" type="submit" id="submit">
             Confirm
         </button>
     </div>
 
+    <!--Odstavec s odkazem, který odkazuje na registrační stránku-->
     <p>Don't have account: <a href="{{path('app_register')}}" class="text-slate-600 hover:underline font-bold">Register here</a></p>
 
     </form>
-
 
 </div>
 

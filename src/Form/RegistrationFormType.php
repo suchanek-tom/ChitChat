@@ -1,5 +1,5 @@
 <?php
-
+//REGISTRAČNÍ FORMULÁŘ v Symfony Forms
 namespace App\Form;
 
 use App\Entity\User;
@@ -12,22 +12,26 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('Firstname')
-            ->add('Lastname')
+            ->add('email') //Vstupní pole pro email
+            ->add('Firstname') //Vstupní pole pro jméno
+            ->add('Lastname') // Vstupní pole pro příjmení
+                //zaškrtávaví políčko pro potvrzení zadaných údaju
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false, 
                 'constraints' => [
                     new IsTrue([
+                        //V případě, že jsme nazaškrtli vypíše se hláška
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
             ])
+            //Vstupní pole pro Heslo
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

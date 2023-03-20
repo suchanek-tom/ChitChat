@@ -1,4 +1,5 @@
 <?php
+//USER ENTITY
 
 namespace App\Entity;
 
@@ -17,32 +18,42 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    //ID
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column()]
     private ?int $id = null;
 
+    //EMAIL (délka:180, každý email musí být unikátní)
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
+    //Uživatelské role
+    //1. Role = ROLE_USER
+    //2. Role = ROLE_ADMIN
     #[ORM\Column(type:"json")]
     private array $roles = [];
 
+    //Hashované heslo
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
 
+    //JMÉNO = text o maximální délce 255 znaků
     #[ORM\Column(length: 255)]
     private ?string $Firstname = null;
 
+    //PŘIJMENÍ = text o maximální délce 255 znaků
     #[ORM\Column(length: 255)]
     private ?string $Lastname = null;
 
+    //UČÁSTNÍCI = jinak řečeno jiní uživatelé chatu, kteří jsou mapovaní pomocí user_id
     #[ORM\OneToMany(targetEntity: Participant::class, mappedBy: 'user_id')]
     private $participant;
 
+    //ZPRÁVY
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: "user_id")]
     private $messages;
 

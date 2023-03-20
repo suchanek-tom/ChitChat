@@ -1,29 +1,38 @@
-{% extends 'base.html.twig' %}
+{# Úvodní stránka #}
 
+{% extends 'base.html.twig' %}
 
 {% block title %}ChitChat{% endblock %}
 
 {% block body %}
-    <!--***LOG IN***-->
+
+    <!--Vzhled stránky, když uživatel je přihlašený-->
     {% if app.user %}
+        <!--Horní lišta-->
         <div class=" bg-sky-900 p-2">
             <b class=" text-white text-xl pl-4">
-                {{ app.user.firstname }}
-                {{ app.user.lastname }}
+                {{ app.user.firstname }} <!--Jméno uživatele-->
+                {{ app.user.lastname }} <!--Přijmení uživatele-->
             </b>
-            <a href="/{{ app.user ? 'logout' : 'login' }}" class=" float-right text-xl text-white font-semibold mx-10 hover:text-black   duration-500">
+            <!--Tlačitko pro příhlašení neno odhlašení-->
+            <a href="/{{ app.user ? 'logout' : 'login' }}" class=" float-right text-xl text-white font-semibold mx-10 hover:text-black duration-500">
                 {{ app.user ? 'Logout' : 'Login' }}
             </a>
         </div>
+        <!--React aplikace, kde se nachází samotný chat-->
         <div id="app"></div>
     {% else %}
-    <!--***LOG OUT***-->
+
+    <!--Vzhled stránky, když uživatel není přihlášený-->
     <div class=" md:flex md:h-screen md:my-auto md:items-center md:justify-center text-center">
-        
+
+            <!--Logo ChitChat-->
             <img src="{{ asset('images/ChitChat-logo.png') }}" alt="ChitChat-logo" class=" h-96 md:block mx-auto md:mx-1">
                 <div class="">
+                    <!--Odstavec-->
                     <p class=" mt-4 text-slate-500 text-xl text-center">Simple chat app.</p>
 
+                        <!--Tlačítko pro přihlášení-->
                         <button
                             type="button"
                             class="inline-block my-3 rounded bg-sky-900 px-6  pt-2.5 pb-2 leading-normal shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-sky-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-blue-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">

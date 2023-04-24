@@ -98,11 +98,11 @@ class ConversationRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('c');
         $qb->
             select('otherUser.email', 'c.id as conversationId', 'lm.content', 'lm.createdAt')
-            ->innerJoin('c.participants', 'p', Join::WITH, $qb->expr()->neq('p.user', ':user'))
-            ->innerJoin('c.participants', 'me', Join::WITH, $qb->expr()->eq('me.user', ':user'))
-            ->leftJoin('c.lastMessage', 'lm')
-            ->innerJoin('me.user', 'meUser')
-            ->innerJoin('p.user', 'otherUser')
+            ->innerJoin('c.participants', 'p', Join::WITH, $qb->expr()->neq('p.user_id', ':user'))
+            ->innerJoin('c.participants', 'me', Join::WITH, $qb->expr()->eq('me.user_id', ':user'))
+            ->leftJoin('c.last_message_id', 'lm')
+            ->innerJoin('me.user_id', 'meUser')
+            ->innerJoin('p.user_id', 'otherUser')
             ->where('meUser.id = :user')
             ->setParameter('user', $userId)
             ->orderBy('lm.createdAt', 'DESC')

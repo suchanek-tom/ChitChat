@@ -21,6 +21,7 @@
         </div>
         <!--React aplikace, kde se nachází samotný chat-->
         <div id="app"></div>
+        <div {{ turbo_stream_listen('product-reviews') }}></div>
     {% else %}
 
     <!--Vzhled stránky, když uživatel není přihlášený-->

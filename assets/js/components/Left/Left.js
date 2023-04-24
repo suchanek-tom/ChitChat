@@ -8,16 +8,16 @@ const mapStateToProps = (state) => {
     return state;
 }
 class Left extends React.Component{
+
     constructor(props) {
         super(props);
     }
-
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         const _t = this;
         this.props.fetchConversations()
             .then(() => {
                 let url = new URL(this.props.hubUrl);
-                url.searchParams.append('topic', `/conversation/${this.props.username}`);
+                url.searchParams.append('topic', `/conversation/${this.props.name}`);
                 const eventSource = new EventSource(url, {
                     withCredentials: true
                 });
@@ -40,7 +40,7 @@ class Left extends React.Component{
                     <div className="">
                         <div className="list-group rounded">
                            {
-                                this.props.items != undefined ?
+                                this.props.items !== undefined ?
 
                                     this.props.items
                                     .sort((a, b) => {

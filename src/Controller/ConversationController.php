@@ -17,7 +17,6 @@ use Symfony\Component\WebLink\Link;
 
 class ConversationController extends AbstractController
 {
-    #[Route('/conversation', name:'app_conversation', methods:'POST')]
 
     private $userRepository;
 
@@ -32,11 +31,8 @@ class ConversationController extends AbstractController
         $this->conversationRepository = $conversationRepository;
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     * @throws Exception
-     */
+    #[Route('/conversation', name:'app_conversation', methods:'POST')]
+
     public function index(Request $request)
     {
         if ($this->getUser() === null) {
@@ -50,16 +46,16 @@ class ConversationController extends AbstractController
         if (is_null($otherUser)) {
 
             $this->addFlash("Error","You don't have friends");
-            return $this->redirectToRoute('home');
+            //return $this->redirectToRoute('home');
             //throw new \Exception("User was not found");
         }
         // cannot create a conversation with myself
-        if ($otherUser->getId() === $this->getUser()->getId()) {
-            throw new Exception("That's deep but you cannot create a conversation with yourself");
-        }
+        //if ($otherUser->getId() === $this->getUser()->getUserIdentifier()) {
+           // throw new Exception("That's deep but you cannot create a conversation with yourself");
+        //}
 
         $conversation = $this->conversationRepository->findConversationByParticipants(
-            $otherUser->getId(),
+            1,
             $this->getUser()->getId() //GetID
         );
 
@@ -74,7 +70,7 @@ class ConversationController extends AbstractController
         $participant->setUserId($this->getUser());
         $participant->setConversationId($conversation->getId()); //$conversation
 
-        dump($participant);
+        //dump($participant);
         $otherParticipant = new Participant();
         $otherParticipant->setUserId($otherUser);
         $otherParticipant->setConversationId($conversation->getId()); //$conversation
@@ -100,11 +96,11 @@ class ConversationController extends AbstractController
     }
 
     /**
-     * @Route("/", name="getConversations", methods={"GET"})
+     * @Route("/getConv", name="getConversations", methods={"GET"})
      * @param Request $request
      * @return JsonResponse
      */
-    public function getConvs(Request $request){
+    public function getConversation(Request $request){
         $conversations = $this->conversationRepository->findConversationsByUser($this->getUser()->getId());
 
         $hubUrl = $this->getParameter('mercure.default_hub');
